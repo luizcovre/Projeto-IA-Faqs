@@ -22,7 +22,7 @@ elif not os.getenv("OPENAI_API_KEY"):
     st.error("❌ OPENAI_API_KEY não encontrada no ambiente.")
     st.stop()
 
-print("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
+st.write("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
 
 # Configura a página (primeiro comando Streamlit)
 st.set_page_config(page_title="Chat FAQ IA", page_icon="🤖")

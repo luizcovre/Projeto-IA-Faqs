@@ -15,6 +15,13 @@ import stat
 # Carrega variáveis de ambiente
 load_dotenv()
 
+import os
+import streamlit as st
+
+# Se estiver rodando na nuvem, força o uso da chave do secrets
+if "OPENAI_API_KEY" in st.secrets:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+
 # Configura a página (primeiro comando Streamlit)
 st.set_page_config(page_title="Chat FAQ IA", page_icon="🤖")
 

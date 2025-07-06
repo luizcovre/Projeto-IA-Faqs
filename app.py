@@ -15,12 +15,13 @@ import stat
 # Carrega variáveis de ambiente
 load_dotenv()
 
-import os
-import streamlit as st
-
-# Se estiver rodando na nuvem, força o uso da chave do secrets
+# Garante que a chave da OpenAI esteja disponível no ambiente antes de qualquer uso
 if "OPENAI_API_KEY" in st.secrets:
     os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+elif not os.getenv("OPENAI_API_KEY"):
+    st.error("❌ Chave da OpenAI não encontrada. Verifique o .env local ou os secrets na nuvem.")
+    st.stop()
+
 
 # Configura a página (primeiro comando Streamlit)
 st.set_page_config(page_title="Chat FAQ IA", page_icon="🤖")

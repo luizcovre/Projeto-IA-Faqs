@@ -12,6 +12,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from PyPDF2 import PdfReader
 import stat
 
+# Configura a página (primeiro comando Streamlit)
+st.set_page_config(page_title="Chat FAQ IA", page_icon="🤖")
+
 # Carrega variáveis de ambiente
 load_dotenv()
 
@@ -22,10 +25,7 @@ elif not os.getenv("OPENAI_API_KEY"):
     st.error("❌ OPENAI_API_KEY não encontrada no ambiente.")
     st.stop()
 
-st.write("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
-
-# Configura a página (primeiro comando Streamlit)
-st.set_page_config(page_title="Chat FAQ IA", page_icon="🤖")
+print("OPENAI_API_KEY:", os.getenv("OPENAI_API_KEY"))
 
 # Título da aplicação
 st.title("Chat FAQ IA")

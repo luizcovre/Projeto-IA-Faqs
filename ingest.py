@@ -7,8 +7,15 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 def carregar_texto(caminho_arquivo: str) -> str:
     """Lê e retorna todo o conteúdo de um arquivo de texto."""
-    with open(caminho_arquivo, "r", encoding="utf-8") as f:
-        return f.read()
+    try:
+        with open(caminho_arquivo, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        print(f"Arquivo não encontrado: {caminho_arquivo}")
+        sys.exit(1)
+    except UnicodeDecodeError:
+        print(f"Erro de encoding ao ler {caminho_arquivo}. Tente salvar como UTF-8.")
+        sys.exit(1)
 
 def dividir_em_chunks(texto: str):
     """Divide o texto em chunks de até 1.000 caracteres com 200 de sobreposição."""

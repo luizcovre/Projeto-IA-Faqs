@@ -7,8 +7,15 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 
 def carregar_texto(caminho_arquivo: str) -> str:
-    with open(caminho_arquivo, "r", encoding="utf-8") as f:
-        return f.read()
+    try:
+        with open(caminho_arquivo, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        print(f"Arquivo não encontrado: {caminho_arquivo}")
+        sys.exit(1)
+    except UnicodeDecodeError:
+        print(f"Erro de encoding ao ler {caminho_arquivo}. Tente salvar como UTF-8.")
+        sys.exit(1)
 
 def main():
     load_dotenv()

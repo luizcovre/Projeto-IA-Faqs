@@ -16,11 +16,15 @@ def main():
     query = " ".join(sys.argv[1:])
 
     embeddings = OpenAIEmbeddings()
-    vector_store = FAISS.load_local(
-        "faqs_index",
-        embeddings,
-        allow_dangerous_deserialization=True
-    )
+    try:
+        vector_store = FAISS.load_local(
+            "faqs_index",
+            embeddings,
+            allow_dangerous_deserialization=True
+        )
+    except Exception as e:
+        print(f"Erro ao carregar o índice: {e}")
+        sys.exit(1)
 
     llm = OpenAI(temperature=0)
     qa = RetrievalQA.from_chain_type(
